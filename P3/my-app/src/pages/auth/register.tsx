@@ -5,6 +5,7 @@ const halamanRegister = () => {
   const { push } = useRouter();
   const handlerRegister = () => {
     // logic register disini
+    localStorage.setItem('isLogin', 'true');
     push('/produk');
   }
 
