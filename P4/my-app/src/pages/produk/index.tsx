@@ -1,19 +1,11 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import TampilanProduk from "../views/produk";
 
-const produk = () => {
-  const { push } = useRouter();
-  
-  useEffect(() => {
-    const isLogin = localStorage.getItem('isLogin');
-    if (!isLogin) {
-      push('/auth/login');
-    }
-  }, [push]);
-
+const halamanProduk = () => {
   return (
-    <div>Produk User Page</div>
+    <>
+      <TampilanProduk />
+    </>
   );
 };
 
-export default produk;
+export default halamanProduk;
