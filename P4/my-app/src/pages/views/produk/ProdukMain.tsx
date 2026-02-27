@@ -1,5 +1,4 @@
 import Link from "next/link";
-import styles from './produk.module.scss';
 
 const ProdukMain = () => {
   const products = [
@@ -10,20 +9,37 @@ const ProdukMain = () => {
   ];
 
   return (
-    <section className={styles.main}>
-      <div className={styles.container}>
-        <h2 className={styles.mainTitle}>Daftar Produk</h2>
-        <div className={styles.productGrid}>
+    <section className="bg-gray-100 py-16">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-10">
+          Daftar Produk
+        </h2>
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((product) => (
-            <div key={product.id} className={styles.productCard}>
-              <div className={styles.productImage}>
-                <img src={`https://picsum.photos/200/200?random=${product.id}`} alt={product.name} />
-              </div>
-              <div className={styles.productInfo}>
-                <h3 className={styles.productName}>{product.name}</h3>
-                <p className={styles.productPrice}>Rp {product.price.toLocaleString('id-ID')}</p>
+            <div
+              key={product.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300"
+            >
+              <img
+                src={`https://picsum.photos/200/200?random=${product.id}`}
+                alt={product.name}
+                className="w-full h-48 object-cover"
+              />
+
+              <div className="p-5 text-center">
+                <h3 className="text-lg font-semibold mb-2">
+                  {product.name}
+                </h3>
+
+                <p className="text-blue-600 font-bold mb-4">
+                  Rp {product.price.toLocaleString('id-ID')}
+                </p>
+
                 <Link href={`/produk/${product.id}`}>
-                  <button className={styles.detailButton}>Lihat Detail</button>
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Lihat Detail
+                  </button>
                 </Link>
               </div>
             </div>
