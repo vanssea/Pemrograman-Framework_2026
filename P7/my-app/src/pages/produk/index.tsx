@@ -1,58 +1,36 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import TampilanProduk from "../views/product";
 
-type ProductType = {
-  id: string;
-  image: string;
-  name: string;
-  price: number;
-  size: string;
-  category: string;
-};
+const kategori = () => {
+  // const [isLogin, setIsLogin] = useState(false);
+  // const { push } = useRouter();
+  const [products, setProducts] = useState([]);
+  // console.log("products:", products);
 
-const Kategori1 = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/produk");
-      const responseData = await response.json();
-      setProducts(responseData.data);
-    } catch (error) {
-      console.error("Error fetching produk:", error);
-    }
-  };
+  // useEffect(() => {
+  //   if (!isLogin) {
+  //     push("/auth/login");
+  //   }
+  // }, []);
 
   useEffect(() => {
-    fetchData();
+    fetch("/api/produk")
+      .then((response) => response.json())
+      .then((responsedata) => {
+        setProducts(responsedata.data);
+        // console.log("Data produk:", responsedata.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching produk:", error);
+      });
   }, []);
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Daftar Produk</h1>
-
-      <button onClick={fetchData} style={{ marginBottom: 20 }}>
-        Refresh Data
-      </button>
-
-      {products.map((item) => (
-        <div
-          key={item.id}
-          style={{
-            border: "1px solid #ddd",
-            padding: 15,
-            marginBottom: 10,
-            borderRadius: 8,
-          }}
-        >
-          <img src={item.image} alt={item.name} width="100" height="100" />
-          <h2>{item.name}</h2>
-          <p>Harga: Rp {item.price}</p>
-          <p>Ukuran: {item.size}</p>
-          <p>Kategori: {item.category}</p>
-        </div>
-      ))}
+    <div>
+      <TampilanProduk products={products} />
     </div>
   );
 };
 
-export default Kategori1;
+export default kategori;
