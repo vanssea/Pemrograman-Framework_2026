@@ -5,42 +5,52 @@ type ProductType = {
   name: string;
   price: number;
   size: string;
+  category: string;
 };
 
-const kategori1 = () => {
-  // const [isLogin, setIsLogin] = useState(false);
-  // const { push } = useRouter();
+const Kategori1 = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
 
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     push("/auth/login");
-  //   }
-  // }, []);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/produk");
+      const responseData = await response.json();
+      setProducts(responseData.data);
+    } catch (error) {
+      console.error("Error fetching produk:", error);
+    }
+  };
 
   useEffect(() => {
-    fetch("/api/produk")
-      .then((response) => response.json())
-      .then((responseData) => {
-        setProducts(responseData.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching produk:", error);
-      });
+    fetchData();
   }, []);
 
   return (
-    <div>
+    <div style={{ padding: 20 }}>
       <h1>Daftar Produk</h1>
-      {products.map((products: ProductType) => (
-        <div key={products.id}>
-          <h2>{products.name}</h2>
-          <p>Harga: {products.price}</p>
-          <p>Ukuran: {products.size}</p>
+
+      <button onClick={fetchData} style={{ marginBottom: 20 }}>
+        Refresh Data
+      </button>
+
+      {products.map((item) => (
+        <div
+          key={item.id}
+          style={{
+            border: "1px solid #ddd",
+            padding: 15,
+            marginBottom: 10,
+            borderRadius: 8,
+          }}
+        >
+          <h2>{item.name}</h2>
+          <p>Harga: Rp {item.price}</p>
+          <p>Ukuran: {item.size}</p>
+          <p>Kategori: {item.category}</p>
         </div>
       ))}
     </div>
   );
 };
 
-export default kategori1;
+export default Kategori1;
