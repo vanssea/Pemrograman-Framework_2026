@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 type ProductType = {
   id: string;
+  image: string;
   name: string;
   price: number;
   size: string;
@@ -43,6 +44,7 @@ const Kategori1 = () => {
             borderRadius: 8,
           }}
         >
+          <img src={item.image} alt={item.name} width="100" height="100" />
           <h2>{item.name}</h2>
           <p>Harga: Rp {item.price}</p>
           <p>Ukuran: {item.size}</p>
