@@ -14,8 +14,12 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
       <h1 className={styles.produk__title}>Daftar Produk</h1>
       <div className={styles.produk__content}>
         {products.length > 0 ? (
-          products.map((products: ProductType) => (
-            <div key={products.id} className={styles.produk__content__item}>
+          products.map((products: ProductType, index: number) => (
+            <div 
+              key={products.id} 
+              className={styles.produk__content__item}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <img 
                 src={products.image} 
                 alt={products.name} 
@@ -34,7 +38,7 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
           ))
         ) : (
           <>
-            {[1, 2, 3, 4].map((i) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <div key={i} className={styles.produk__content__item}>
                 <div className={styles.produk__content__skeleton__image}></div>
                 <div className={styles.produk__content__skeleton__name}></div>

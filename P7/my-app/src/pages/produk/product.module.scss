@@ -7,6 +7,7 @@
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 16px;
+    animation: fadeInDown 0.8s ease-out;
   }
 
   &__content {
@@ -24,6 +25,13 @@
       flex-direction: column;
       align-items: center;
       box-sizing: border-box;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.6s ease-out both;
+      
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
       
       &__image {
         width: 100%;
@@ -31,6 +39,11 @@
         object-fit: cover;
         border-radius: 4px;
         margin-bottom: 12px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
       }
       
       &__name {
@@ -67,48 +80,99 @@
     &__skeleton__image {
       width: 100%;
       height: 200px;
-      background-color: #e0e0e0;
+      background: linear-gradient(
+        90deg,
+        #e0e0e0 0%,
+        #f0f0f0 40%,
+        #f0f0f0 60%,
+        #e0e0e0 100%
+      );
+      background-size: 200% 100%;
       border-radius: 4px;
       margin-bottom: 12px;
-      animation: skeleton-loading 1.5s infinite ease-in-out;
+      animation: shimmer 1.5s infinite;
       display: block;
     }
     
     &__skeleton__name {
       width: 100%;
       height: 20px;
-      background-color: #e0e0e0;
+      background: linear-gradient(
+        90deg,
+        #e0e0e0 0%,
+        #f0f0f0 40%,
+        #f0f0f0 60%,
+        #e0e0e0 100%
+      );
+      background-size: 200% 100%;
       border-radius: 4px;
       margin-bottom: 8px;
-      animation: skeleton-loading 1.5s infinite ease-in-out;
+      animation: shimmer 1.5s infinite;
     }
     
     &__skeleton__category {
       width: 100%;
       height: 16px;
-      background-color: #e0e0e0;
+      background: linear-gradient(
+        90deg,
+        #e0e0e0 0%,
+        #f0f0f0 40%,
+        #f0f0f0 60%,
+        #e0e0e0 100%
+      );
+      background-size: 200% 100%;
       border-radius: 4px;
       margin-bottom: 8px;
-      animation: skeleton-loading 1.5s infinite ease-in-out;
+      animation: shimmer 1.5s infinite;
     }
     
     &__skeleton__price {
       width: 100%;
       height: 18px;
-      background-color: #e0e0e0;
+      background: linear-gradient(
+        90deg,
+        #e0e0e0 0%,
+        #f0f0f0 40%,
+        #f0f0f0 60%,
+        #e0e0e0 100%
+      );
+      background-size: 200% 100%;
       border-radius: 4px;
-      animation: skeleton-loading 1.5s infinite ease-in-out;
+      animation: shimmer 1.5s infinite;
     }
   }
-@keyframes skeleton-loading {
-  0% { 
-    opacity: 1;
+
+// Shimmer animation for skeleton loading
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
   }
-  50% { 
-    opacity: 0.5;
+  100% {
+    background-position: -200% 0;
   }
-  100% { 
+}
+
+// Fade in from top animation
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Fade in from bottom animation for items
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 }
