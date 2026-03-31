@@ -2,10 +2,10 @@ import TampilanProduk from "../../views/product";
 import useSWR from "swr";
 import fetcher from "../../utils/swr/fetcher";
 
-// const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const Kategori = () => {
   const { data, error, isLoading } = useSWR("/api/produk", fetcher);
+
+  console.log("DATA:", data);
 
   if (error) {
     return <div>Gagal memuat data produk.</div>;
@@ -13,7 +13,7 @@ const Kategori = () => {
 
   return (
     <div>
-      <TampilanProduk products={isLoading ? [] : data?.data ?? []} />
+      <TampilanProduk products={data?.data || []} />
     </div>
   );
 };
