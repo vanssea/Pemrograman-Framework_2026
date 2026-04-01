@@ -1,20 +1,14 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
-export default function ProfilePage() {
-  const { push } = useRouter();
-  
-  useEffect(() => {
-    const isLogin = localStorage.getItem('isLogin');
-    if (!isLogin) {
-      push('/auth/login');
-    }
-  }, [push]);
 
+const HalamanProfile = () => {
+  const {data}:any = useSession();
   return (
     <div>
-      <h1>Halaman Profile</h1>
-      <p>Ini adalah halaman profile pengguna.</p>
+      <h1>Halaman Profile</h1><br />
+      <h1>Selamat Datang {data?.user?.fullname}</h1>
     </div>
-  );
+  )
 }
+
+export default HalamanProfile
