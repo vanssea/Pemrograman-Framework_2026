@@ -1,5 +1,6 @@
 import TampilanProduk from "../../views/product";
 import { ProductType } from "../../types/Product.type";
+import { revalidateEvents } from "swr/dist/_internal";
 
 const halamanProdukStatic = (props:{products:ProductType[]}) => {
     const { products } = props;
@@ -23,6 +24,7 @@ export async function getStaticProps() {
     return {
         props: {
             products: response.data,
-        }
+        },
+        revalidate: 10, // Revalidate data setiap 10 detik
     }
 }
