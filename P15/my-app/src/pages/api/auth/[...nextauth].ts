@@ -30,6 +30,10 @@ export const authOptions:NextAuthOptions = {
     })
   ],
 
+  pages: {
+    signIn: "/auth/login",
+  },
+
   callbacks: {
     async jwt({ token, account,profile, user }:any) {
       if (account?.provider === "credentials" && user) {
