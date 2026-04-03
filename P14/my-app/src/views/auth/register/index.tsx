@@ -8,6 +8,8 @@ const TampilanRegister = () => {
   const { push } = useRouter();
   const [error, setError] = useState("");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setError("");
+    setIsLoading(true);
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(event.currentTarget);
@@ -31,13 +33,14 @@ const TampilanRegister = () => {
     } else {
       setIsLoading(false);
       setError(
-        response.status === 400 ? "User already exists" : "An error occurred",
+        response.status === 400 ? "Email already exists" : "An error occurred",
       );
     }
   };
   
-    return (
+    return ( 
         <div className={style.register}>
+          {error && <p className={style.register_form_error}>{error}</p>}
             <h1 className={style.register_title}>Halaman Register</h1>
             <div className={style.register_form}>
                 <form action="" onSubmit={handleSubmit}>
@@ -88,9 +91,8 @@ const TampilanRegister = () => {
                             className={style.register_form_item_input}
                         />
                     </div>
-
-                    <button type="submit" className={style.register_form_item_button}>
-                        Register
+                    <button type="submit" className={style.register_form_item_button} disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Register"}
                     </button>
                 </form>
 
@@ -99,6 +101,7 @@ const TampilanRegister = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
