@@ -8,7 +8,7 @@ const TampilanLogin = () => {
 
   const handleLogin = () => {
     // logic login disini
-    push('/produk');
+    push('/');
   }
 
   return (

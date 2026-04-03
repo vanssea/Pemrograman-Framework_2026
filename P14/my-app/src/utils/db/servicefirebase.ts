@@ -23,6 +23,10 @@ export async function retrieveProducts(collectionName: string) {
   return data;
 }
 
+export async function getData(collectionName: string) {
+  return retrieveProducts(collectionName);
+}
+
 export async function retrieveDataByID(collectionName: string, id: string) {
   const snapshot = await getDoc(doc(db, collectionName, id));
   const data = snapshot.data();
