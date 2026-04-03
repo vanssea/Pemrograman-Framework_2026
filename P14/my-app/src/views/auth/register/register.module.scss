@@ -69,9 +69,16 @@
     }
 
     &_error {
-      color: red;
+      color: #d32f2f;
+      background-color: #ffebee;
+      border: 1px solid #ef5350;
+      border-radius: 8px;
       font-size: 14px;
-      margin-top: 8px;
+      font-weight: 600;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: slideDown 0.3s ease;
     }
 
     &_item_text {
@@ -97,6 +104,17 @@
   from {
     opacity: 0;
     transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;

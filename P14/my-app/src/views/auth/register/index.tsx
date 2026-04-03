@@ -16,25 +16,45 @@ const TampilanRegister = () => {
     const email = formData.get("email") as string;
     const fullname = formData.get("fullname") as string;
     const password = formData.get("password") as string;
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, fullname, password }),
-    });
-    // const result = await response.json();
-    // console.log(result);
-    if (response.status === 200) {
-      form.reset();
-      // event.currentTarget.reset();
+
+    // Validasi: Email wajib
+    if (!email) {
+      setError("Email wajib diisi");
       setIsLoading(false);
-      push("/auth/login");
-    } else {
+      return;
+    }
+
+    // Validasi: Password minimal 6 karakter
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
       setIsLoading(false);
-      setError(
-        response.status === 400 ? "Email already exists" : "An error occurred",
-      );
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, fullname, password }),
+      });
+      // const result = await response.json();
+      // console.log(result);
+      if (response.status === 200) {
+        form.reset();
+        // event.currentTarget.reset();
+        setIsLoading(false);
+        push("/auth/login");
+      } else {
+        setIsLoading(false);
+        setError(
+          response.status === 400 ? "Email already exists" : "An error occurred",
+        );
+      }
+    } catch (err) {
+      setIsLoading(false);
+      setError("Terjadi kesalahan. Silakan coba lagi.");
     }
   };
   
@@ -57,6 +77,7 @@ const TampilanRegister = () => {
                             name="email"
                             placeholder="Email"
                             className={style.register_form_item_input}
+                            required
                         />
                     </div>
 
@@ -89,6 +110,8 @@ const TampilanRegister = () => {
                             name="password"
                             placeholder="Password"
                             className={style.register_form_item_input}
+                            required
+                            minLength={6}
                         />
                     </div>
                     <button type="submit" className={style.register_form_item_button} disabled={isLoading}>
