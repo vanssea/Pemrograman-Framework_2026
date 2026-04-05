@@ -78,6 +78,14 @@ const TampilanLogin = () => {
             <button type="submit" className={style.login_form_item_button} disabled={isLoading}>
               {isLoading ? "Loading..." : "Login"}
             </button>
+            <br /> <br />
+            <button
+              onClick={() => signIn("google", { callbackUrl, redirect: false })}
+              className={style.login_form_item_button}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "sign in with google"}
+            </button>
           </form>
 
           <div className={style.login_form_item_text}>

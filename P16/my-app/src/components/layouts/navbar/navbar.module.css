@@ -26,14 +26,34 @@
 .navbar__right {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 16px;
 }
 
 /* Welcome text */
 .navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 16px;
   font-weight: 500;
   opacity: 0.9;
+  white-space: nowrap;
+}
+
+/* Avatar image */
+.navbar__user__image {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+}
+
+.navbar__user__image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
 }
 
 /* Button */
@@ -79,6 +99,11 @@
   }
 
   .navbar__user {
-    display: none;
+    font-size: 14px;
+  }
+
+  .navbar__user__image {
+    width: 36px;
+    height: 36px;
   }
 }
