@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github"
 import bcrypt from "bcrypt"
 import { signIn, signInWithGoogle } from "@/utils/db/servicefirebase"
 
@@ -43,6 +44,10 @@ export const authOptions:NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID || process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_SECRET || process.env.GITHUB_CLIENT_SECRET || "",
+    }),
   ],
 
   pages: {
@@ -57,8 +62,8 @@ export const authOptions:NextAuthOptions = {
         token.role = user.role
       }
 
-      // Jika login dengan Google, tambahkan informasi yang diperlukan ke token
-      if (account?.provider === "google") {
+      // Jika login dengan Google/GitHub, tambahkan informasi yang diperlukan ke token
+      if (account?.provider === "google" || account?.provider === "github") {
         const data = {
           fullname: user.name,
           email: user.email,

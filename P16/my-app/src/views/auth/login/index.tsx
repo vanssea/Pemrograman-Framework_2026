@@ -80,11 +80,21 @@ const TampilanLogin = () => {
             </button>
             <br /> <br />
             <button
-              onClick={() => signIn("google", { callbackUrl, redirect: false })}
+              type="button"
+              onClick={() => signIn("google", { callbackUrl })}
               className={style.login_form_item_button}
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : "sign in with google"}
+              {isLoading ? "Loading..." : "Sign In With Google"}
+            </button>
+            <br /> <br />
+            <button
+              type="button"
+              onClick={() => signIn("github", { callbackUrl })}
+              className={style.login_form_item_button}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Sign In With GitHub"}
             </button>
           </form>
 
