@@ -28,6 +28,13 @@ const TampilanLogin = () => {
 
       // console.log("signIn response:", res);
       if (!res?.error) {
+        if (typeof window !== "undefined" && window.gtag) {
+          window.gtag("event", "login_success", {
+            event_category: "auth",
+            event_label: event.target.email.value,
+          });
+        }
+
         setIsLoading(false);
         push(callbackUrl);
       } else {
