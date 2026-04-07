@@ -21,39 +21,39 @@ export default HalamanProduk;
 
 
 {/digunakan server-side rendering/}
-//export async function getServerSideProps({ params }: { params: { produk: string } }) {
-//   const res = await fetch(`http://localhost:3000/api/produk/${params?.produk}`);
-//   const respone = await res.json();
-//   // console.log("Data produk yang diambil dari API:", respone);
-//   return {
-//     props: {
-//       product: respone.data, // Pastikan untuk memberikan nilai default jika data tidak tersedia
-//     },
-//   };
-// }
-
-
-{/digunakan static-site generation/}
-
-export async function getStaticPaths() {
-  const data = await getData("products");
-
-  const paths = data.map((product: any) => ({
-    params: { produk: product.id },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: { params: { produk: string } }) {
-  const product = await retrieveDataByID("products", params.produk);
-
+export async function getServerSideProps({ params }: { params: { produk: string } }) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produk/${params?.produk}`);
+  const respone = await res.json();
+  // console.log("Data produk yang diambil dari API:", respone);
   return {
     props: {
-      product,
+      product: respone.data, // Pastikan untuk memberikan nilai default jika data tidak tersedia
     },
   };
 }
+
+
+// {/digunakan static-site generation/}
+
+// export async function getStaticPaths() {
+//   const data = await getData("products");
+
+//   const paths = data.map((product: any) => ({
+//     params: { produk: product.id },
+//   }));
+
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+
+// export async function getStaticProps({ params }: { params: { produk: string } }) {
+//   const product = await retrieveDataByID("products", params.produk);
+
+//   return {
+//     props: {
+//       product,
+//     },
+//   };
+// }
