@@ -1,22 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, jest, beforeEach } from "@jest/globals";
+import { mockRouter, resetMockRouter } from "../mocks/nextRouter";
 
-const pushMock = jest.fn();
 const swrMockResult = {
   data: { data: [] },
   error: null,
   isLoading: false,
 };
 
-// mock router
 jest.mock("next/router", () => ({
-  useRouter: () => ({
-    push: pushMock,
-    prefetch: jest.fn(),
-  }),
+  useRouter: () => mockRouter,
 }));
 
-// mock swr
+// SWR mock setup
 jest.mock("swr", () => ({
   __esModule: true,
   default: jest.fn(() => swrMockResult),
@@ -26,7 +22,7 @@ const ProductPage = require("../../pages/produk").default;
 
 describe("Product Page", () => {
   beforeEach(() => {
-    pushMock.mockClear();
+    resetMockRouter();
   });
 
   it("renders product page correctly", () => {
